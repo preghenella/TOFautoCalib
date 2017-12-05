@@ -1,22 +1,32 @@
 #! /bin/bash
 
 # init variables                                                                                                   
-if [ "$1" = "" ] || [ "$2" = "" ] || [ "$3" = "" ] || [ "$4" = "" ] || [ "$5" = "" ] || [ "$6" = "" ]; then
-    echo "usage: TOFmanualCalib.sh [year] [period] [pass] [startrun] [endun] [ocdb]"
+if [ "$1" = "" ] ; then
+    echo "usage: TOFautoCalib.sh [period] [pass=cpass1_pass1] [startrun=0] [endun=0] [ocdb=local://OCDB]"
     exit 1
 fi
-year=$1
-period=$2
-pass=$3
-startrun=$4
-endrun=$5
-ocdb=$6
+year=$(echo ${period:0:10})
+period=$1
+pass=$2
+startrun=$3
+endrun=$4
+ocdb=$5
+
+### init ###
+if [ "$pass" = "" ]; then pass=cpass1_pass1; fi
+if [ "$startrun" = "" ]; then startrun=0; fi
+if [ "$endrun" = "" ]; then endrun=0; fi
+if [ "$ocdb" = "" ]; then ocdb=local://OCDB; fi
+
+year=$(echo "20"${period:3:2})
+period_prefix=${period:0:5}
+period_suffix=${period:5}
 
 ### splash ###
 echo " --------------------------------------------"
 echo " This is the TOF manual calibration automator"
 echo " --------------------------------------------"
-echo " You requested to calibrate period \"$period\""
+echo " You requested to calibrate period \"$period\" ($year)"
 echo " using data from \"$pass\" reconstruction."
 echo " I will process and produce the calibration objects"
 echo " TOF/Calib/ParOffline, TOF/Calib/Problematics"
@@ -27,10 +37,6 @@ echo " --------------------------------------------"
 echo " The process will start in 10 seconds from now"
 echo " --------------------------------------------"
 sleep 10
-
-### init ###
-period_prefix=${period:0:5}
-period_suffix=${period:5}
 
 ### copy data ###
 chmod +x copyTOFcalibTree.sh
