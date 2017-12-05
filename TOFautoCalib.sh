@@ -5,7 +5,6 @@ if [ "$1" = "" ] ; then
     echo "usage: TOFautoCalib.sh [period] [pass=cpass1_pass1] [startrun=0] [endun=0] [ocdb=local://OCDB]"
     exit 1
 fi
-year=$(echo ${period:0:10})
 period=$1
 pass=$2
 startrun=$3
