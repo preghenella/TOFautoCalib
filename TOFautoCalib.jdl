@@ -1,0 +1,36 @@
+Executable = "/alice/cern.ch/user/r/rpreghen/bin/starter.sh";
+Validationcommand = "/alice/cern.ch/user/r/rpreghen/bin/validation.sh";
+Arguments = "bash TOFautoCalib.sh $1 $2 $3 $4 $5 $6";
+
+Requirements = ( other.Type == "machine" );
+
+Packages = {
+	"VO_ALICE@AliRoot::v5-09-18-1",
+	"APISCONFIG::V1.1x"
+};
+
+JDLVariables = {
+        "Packages",
+        "OutputDir"
+};
+
+Type = "Job";
+User = "rpreghen";
+Jobtag = { "comment: TOFautoCalib jdl" };
+EMail = "preghenella@bo.infn.it";
+TTL = 72000;
+Price = 1;
+Workdirectorysize = { "16000MB" };
+
+InputFile = {
+	"LF:/alice/cern.ch/user/r/rpreghen/TOFautoCalib/TOFautoCalib.sh",
+	"LF:/alice/cern.ch/user/r/rpreghen/TOFautoCalib/TOFcalibAPI.C",
+	"LF:/alice/cern.ch/user/r/rpreghen/TOFautoCalib/copyTOFcalibTree.sh",
+	"LF:/alice/cern.ch/user/r/rpreghen/TOFautoCalib/chainer.C"
+};
+
+OutputArchive = {
+	"log_archive.zip:wn.xml,stdout,stderr,*.log@",
+	"root_archive.zip:*.root@"
+};
+OutputDir = "/alice/cern.ch/user/r/rpreghen/TOFautoCalib/out/$1/$2/$3";
