@@ -1,7 +1,7 @@
 # TOF manual calibration automator
 
 ## Usage
-`TOFautoCalib.sh [year] [period] [pass] [startrun] [endun] [ocdb]`
+`TOFautoCalib.sh [year] [period] [pass] [startrun] [endrun] [ocdb]`
 
 ## Example #1
 `TOFautoCalib.sh 2017 LHC17p cpass1_pass1 282351 282783 local://OCDB`
